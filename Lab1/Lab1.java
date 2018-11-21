@@ -1,6 +1,9 @@
 public class Lab1 {
     public static void main(String args[]) {
-        Matrix matrix = new Matrix(6, 6);
+        int defaultSize = 6;
+        int size = args.length > 0 ? Integer.parseInt(args[0]) : defaultSize;
+        Matrix matrix = new Matrix(size, size);
+
         double max = Matrix.max(matrix);
         double last = matrix.last();
 
@@ -8,9 +11,9 @@ public class Lab1 {
 
         for (int i = 0; i < matrix.rows; ++i) {
             for (int j = 0; j < matrix.cols; ++j) {
-                if (matrix.array[i][j] == max) {
-                    matrix.array[i][j] = last;
-                    matrix.array[matrix.rows - 1][matrix.cols - 1] = max;
+                if (matrix.get(i, j) == max) {
+                    matrix.set(last, i, j);
+                    matrix.set(max, matrix.rows - 1, matrix.cols - 1);
                     break;
                 }
             }
@@ -28,7 +31,19 @@ public class Lab1 {
 
 class Matrix {
     int rows, cols;
-    double[][] array;
+    private double[][] array;
+
+    public double get(int row, int col) {
+        return this.array[row][col];
+    }
+
+    public double set(double value, int row, int col) {
+        return this.array[row][col] = value;
+    }
+
+    public int size() {
+        return this.array.length;
+    }
 
     Matrix(int rows, int cols) {
         this.rows = rows;
@@ -44,8 +59,7 @@ class Matrix {
     public static void print(Matrix matrix) {
         for (double[] row: matrix.array) {
             for (double col: row) {
-                System.out.print(col);
-                System.out.print(' ');
+                System.out.printf("%17.14f ", col);
             }
             System.out.println();
         }
@@ -65,4 +79,3 @@ class Matrix {
         return this.array[this.rows - 1][this.cols - 1];
     }
 }
-
