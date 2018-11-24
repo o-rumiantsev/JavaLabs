@@ -4,9 +4,11 @@ public class Lab1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter rows count: ");
+
         int customSize = sc.nextInt();
         int defaultSize = 6;
         int size = customSize > 0 ? customSize : defaultSize;
+
         Matrix matrix = new Matrix(size, size);
 
         double max = Matrix.max(matrix);
@@ -35,8 +37,8 @@ public class Lab1 {
 }
 
 class Matrix {
-    private double[][] array;
-    public int rows, cols;
+    public final double[][] array;
+    public final int rows, cols;
 
     public double get(int row, int col) {
         return this.array[row][col];
